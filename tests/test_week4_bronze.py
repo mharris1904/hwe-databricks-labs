@@ -42,9 +42,11 @@ def test_categories_insert_overwrite(spark):
 
 def test_books_insert_overwrite(spark):
     _run_cell(spark, "bronze_books_load")
-    rows = spark.sql("SELECT ingestion_timestamp, source_filename FROM bronze.books").collect()
-    # rows is a list of Row objects; rows[0].ingestion_timestamp and rows[0].source_filename are the audit columns
-    # TODO: assert that at least one row exists and every row has non-null ingestion_timestamp and source_filename
+    nulls = spark.sql("""
+        SELECT COUNT(*) AS cnt FROM bronze.books
+        WHERE ingestion_timestamp IS NULL OR source_filename IS NULL
+    """).collect()[0].cnt
+    # TODO: assert nulls equals 0
 
 
 # ---------------------------------------------------------------------------
