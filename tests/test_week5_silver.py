@@ -36,8 +36,8 @@ def test_categories_merge(spark):
     fiction = spark.sql("SELECT * FROM silver.categories WHERE category_id = '1'").collect()[0]
     # space_opera and fiction are Row objects; .parent_category_id is a string
     # TODO: assert space_opera.parent_category_id and fiction.parent_category_id are correct
-    assert space_opera.parent_category == '3'
-    assert fiction.parent_category == ''
+    assert space_opera.parent_category_id == '3'
+    assert fiction.parent_category_id == ''
 
 
 # ---------------------------------------------------------------------------
