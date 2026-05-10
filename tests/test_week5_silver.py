@@ -68,9 +68,9 @@ def test_customers_takes_most_recent(spark):
     # TODO: assert alice has exactly 1 row (deduplication worked) and alice[0].name, .address, .city
     # match the MORE RECENT order (ONL-002, 2025-07-15): 'Alice New', '200 New Ave', 'NewCity'
     assert len(alice) == 1
-    assert alice.name == 'Alice New'
-    assert alice.address == '200 New Ave'
-    assert alice.city == 'NewCity'
+    assert alice[0].name == 'Alice New'
+    assert alice[0].address == '200 New Ave'
+    assert alice[0].city == 'NewCity'
 
 
 # ---------------------------------------------------------------------------
@@ -108,7 +108,7 @@ def test_orders_instore_null_email_sentinel(spark):
     # TODO: assert that ins_001[0].customer_email equals 'in-store' (NULL email became sentinel),
     # and ins_002[0].customer_email equals 'bob@example.com'
     assert ins_001[0].customer_email == 'in-store'
-    assert ins_002[0].custmmer_email == 'bob@example.com'
+    assert ins_002[0].customer_email == 'bob@example.com'
 
 
 # ---------------------------------------------------------------------------
